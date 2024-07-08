@@ -18,6 +18,7 @@ import json
 driver = webdriver.Chrome()
 
 from tracking import InteractionTracker
+from userInfoApp import runUserInfoApp
 
 # Inject Heatmap.js and interaction data
 heatmap_js = """
@@ -90,8 +91,8 @@ def automate_login(username, password):
         YOUR RESPONSE SHOULD ONLY CONTAIN CODE AND NOTHING ELSE, JUST CODE. 
         
 
-        Here are the login credentials. The username is: {ARXIV_EMAIL} and the password 
-        is: {ARXIV_PASSWORD}. 
+        Here are the login credentials. The username is: {username} and the password 
+        is: {password}. 
 
         Here is some example code to illustrate the idea: 
 
@@ -133,61 +134,10 @@ def automate_login(username, password):
         # Get the response from ChatGPT
         chatgpt_response = generate_chatgpt_response(prompt).content
         print("ChatGPT Response:", chatgpt_response)
-
-        # try:
-        #     # Compile the code string to check for syntax errors
-        #     compile(code_string, '<string>', 'exec')
-        #     print("Syntax is correct.")
-        # except SyntaxError as e:
-        #     print(f"Syntax error: {e}")
         print("Making use of exec")
         exec("print('Executing Chat gpt**** Code')")
         exec(chatgpt_response)
 
-        
-        # # Example response parsing (assuming ChatGPT provides CSS selectors)
-        # # This part will depend on how the response is formatted
-        
-        # #selectors = eval(chatgpt_response)  # Be cautious with eval, better to parse safely
-        # selectors = json.loads(chatgpt_response)
-
-
-        # username_selector = selectors['username_selector']
-        # password_selector = selectors['password_selector']
-        # login_button_selector = selectors['login_selector']
-        
-        # # Find the elements using the selectors from ChatGPT
-        # username_field = driver.find_element(By.CSS_SELECTOR, username_selector)
-        # password_field = driver.find_element(By.CSS_SELECTOR, password_selector)
-        # login_button = driver.find_element(By.CSS_SELECTOR, login_button_selector)
-
-        # # Initialize ActionChains
-        # actions = ActionChains(driver)
-
-        # # Define a series of mouse movements and clicks
-        # actions.move_by_offset(100, 200)  # Move to (100, 200) from the current position
-        # actions.click()                # Click at the current position
-        # actions.pause(1)                  # Pause for 1 second
-
-        # actions.move_by_offset(50, 50)    # Move to (150, 250) from the last position
-        # actions.click()                   # Click at the current position
-        # actions.pause(1)                  # Pause for 1 second
-
-        # actions.move_by_offset(0, 500)    # Scroll down by 500 pixels
-        # actions.pause(1)                  # Pause for 1 second
-
-        # # Perform the actions
-        # actions.perform() 
-        
-        # # Input the credentials
-        # username_field.send_keys(username)
-        # password_field.send_keys(password)
-        
-        # Click the login button
-        # login_button.click()
-        
-        # Wait for login to complete
-        # time.sleep(3)  # Adjust this delay as needed
     except: 
         pass    
     
@@ -195,24 +145,35 @@ def automate_login(username, password):
 
 # Main function
 def main():
-    url = "https://arxiv.org/login"  # Replace with the actual login URL
-    username = ARXIV_EMAIL
-    password = ARXIV_PASSWORD
 
 
-    # Navigate to the URL
-    driver.get(url)
+    user_info, login_info = {}, {}
+    def on_submit(login_i, user_i): 
+        login_info, user_info  = login_i, user_i
 
-    interaction_tracker = InteractionTracker(driver)
+        # Navigate to the URL
+        driver.get(login_info["website_url"])
+
+        interaction_tracker = InteractionTracker(driver)
+        print("Login infor is:", login_info)
+        
+        # Automate the login process
+        automate_login(login_info["username"], login_info["password"])
+
+        driver.execute_script("console.log(window.interaction_data);")
+        print("Executing heatmap script")
+        driver.execute_script(heatmap_js)
+        input("Sleeping, press enter to continue ")
     
-    
-    # Automate the login process
-    automate_login(username, password)
+    runUserInfoApp(on_submit)
 
-    driver.execute_script("console.log(window.interaction_data);")
-    print("Executing heatmap script")
-    driver.execute_script(heatmap_js)
-    input("Sleeping, press enter to continue ")
+
+    # url = "https://arxiv.org/login"  # Replace with the actual login URL
+    # username = ARXIV_EMAIL
+    # password = ARXIV_PASSWORD
+
+
+    
 
 if __name__ == "__main__":
     main()

@@ -45,9 +45,6 @@ def initialize_console_tracking(driver):
 
     document.addEventListener('focus', handleTyping);
     document.addEventListener('keydown', handleTyping);
-
-
-
     """
     driver.execute_script(init_script)
 
