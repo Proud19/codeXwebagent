@@ -5,6 +5,8 @@
 
 codeXwebagent is a Python repository that implements a web agent designed to simulate user interactions on login pages of websites and generate comprehensive analytics reports as part of a 2-day codeX hackathon. This tool is crucial for optimizing website usability and enhancing the overall user experience by providing valuable insights into user behavior and interaction patterns.
 
+[![Logo](https://github.com/user-attachments/assets/8f107289-3f03-4aa4-923b-4844f462d352)]([https://www.example.com](https://codexchallenge.com/))
+
 ## Key Features
 
 - **Simulation of User Interactions:** The agent replicates real-user behavior on websites, including clicks, scrolls, and pauses.
@@ -31,3 +33,32 @@ Alongside automatic login, the system also tracks various actions that the agent
   <img width="600" alt="Heatmap Image" src="https://github.com/user-attachments/assets/a8f7401e-98e1-4855-915e-97c84c85ccd4">
 </p>
 
+## Technical Details
+
+### System Architecture
+
+The codeXwebagent system is composed of several components that work together to simulate user interactions, collect interaction data, and generate analytics reports. Below is a detailed architecture diagram and description of each component.
+
+<p align="center">
+  <img width="600" alt="codeXwebagent_system_architecture" src="https://github.com/user-attachments/assets/ad4cfefc-ae83-4c06-aa98-bc48e281a5e2">
+</p>
+
+
+1. **User Info Collection:**
+   - **GUI Interface:** A simple GUI collects user information, including login credentials and target website URL.
+   - **User Info App:** The `runUserInfoApp` function handles user input and triggers the login simulation.
+
+2. **Web Interaction Simulation:**
+   - **Selenium WebDriver:** Automates the web browser to simulate user actions such as clicks, scrolls, and form submissions.
+   - **ActionChains:** Used to create complex user interaction sequences, making the simulation more realistic.
+
+3. **AI-Driven Element Selection:**
+   - **OpenAI Integration:** Utilizes the OpenAI API to analyze the HTML content of login pages and generate appropriate selectors for form fields.
+   - **ChatGPT:** Generates code snippets for interaction based on the page's HTML content.
+
+4. **Interaction Tracking:**
+   - **InteractionTracker:** A custom module that tracks user interactions (clicks, movements) and stores the data.
+   - **Heatmap.js:** A JavaScript library injected into the page to visualize interaction data as a heatmap.
+
+5. **Data Visualization:**
+   - **Heatmap Generation:** Interaction data is processed and displayed as a heatmap, highlighting areas of high user engagement.
