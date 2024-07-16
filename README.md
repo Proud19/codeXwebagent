@@ -3,7 +3,7 @@
 
 **Overview:**
 
-codeXwebagent is a Python repository that implements a web agent designed to simulate user interactions on login pages of websites and generate comprehensive analytics reports as part of a 2-day HackerX hackathon. This tool is crucial for optimizing website usability and enhancing the overall user experience by providing valuable insights into user behavior and interaction patterns.
+codeXwebagent is a Python repository that implements a web agent designed to simulate user interactions on login pages of websites and generate comprehensive analytics reports as part of a 2-day codeX hackathon. This tool is crucial for optimizing website usability and enhancing the overall user experience by providing valuable insights into user behavior and interaction patterns.
 
 ## Key Features
 
