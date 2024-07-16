@@ -28,6 +28,6 @@ When given this information, the backend creates an agent whose task is to log i
 Alongside automatic login, the system also tracks various actions that the agent is making and creates a heatmap to show the agent's activity.
 
 <p align="center">
-  <img width="600" alt="Heatmap Image" src="https://github.com/user-attachments/assets/a0d81402-985f-49e8-b465-d0be45cce77e">
+  <img width="600" alt="Heatmap Image" src="https://github.com/user-attachments/assets/a8f7401e-98e1-4855-915e-97c84c85ccd4">
 </p>
 
